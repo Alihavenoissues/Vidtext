@@ -578,3 +578,5 @@ export function OmnicoreApp() {
         </footer>
       </div>
     </div>
+)
+}
