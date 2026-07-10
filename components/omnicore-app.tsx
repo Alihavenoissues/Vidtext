@@ -504,4 +504,77 @@ export function OmnicoreApp() {
               </div>
             </TabsContent>
 
-           
+              <TabsContent value="tags" className="mt-4">
+              <Card className="border-zinc-800 bg-zinc-900/30">
+                <CardContent className="pt-6">
+                  {aiData.tags.length ? (
+                    <>
+                      <div className="flex flex-wrap gap-2">
+                        {aiData.tags.map((tag, i) => (
+                          <Badge
+                            key={i}
+                            variant="secondary"
+                            className="rounded-md border-zinc-700 bg-zinc-800 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700"
+                          >
+                            #{tag.replace(/^#/, '')}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="mt-4 flex justify-end border-t border-zinc-800/60 pt-4">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-zinc-700 text-xs"
+                          onClick={() => handleCopy(aiData.tags.map((t) => `#${t.replace(/^#/, '')}`).join(' '), 'all-tags')}
+                        >
+                          {copiedSection === 'all-tags' ? 'Copied All!' : 'Copy All Tags'}
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="py-8 text-center text-sm text-zinc-500">No tags were returned for this video.</p>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="titles" className="mt-4">
+              <div className="space-y-3">
+                {aiData.titles.length ? (
+                  aiData.titles.map((title, i) => (
+                    <Card key={i} className="border-zinc-800 bg-zinc-900/30">
+                      <CardContent className="flex items-center justify-between gap-4 p-4">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-500/10 text-xs font-semibold text-indigo-400">
+                            {i + 1}
+                          </span>
+                          <p className="text-sm font-medium text-zinc-200">{title}</p>
+                        </div>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-8 w-8 shrink-0 text-zinc-500"
+                          onClick={() => handleCopy(title, `title-${i}`)}
+                        >
+                          {copiedSection === `title-${i}` ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <Card className="border-zinc-800 bg-zinc-900/30">
+                    <CardContent className="py-8 text-center text-sm text-zinc-500">
+                      No titles were returned for this video.
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
+
+        <footer className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-6 text-xs text-zinc-500 md:flex-row">
+          <div>Bhai AI Systems &copy; 2026. All Rights Reserved.</div>
+        </footer>
+      </div>
+    </div>
